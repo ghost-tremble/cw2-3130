@@ -1,0 +1,1 @@
+{"version":3,"file":"dowloadTextData.js","sourceRoot":"","sources":["../../src/services/dowloadTextData.ts"],"names":[],"mappings":"AAAA,IAAM,iBAAiB,GAAG;IACtB,IAAM,UAAU,GAAI;QAChB,KAAK;KACR,CAAA;IACD,IAAM,kBAAkB,GAAG,IAAI,gBAAgB,CAAC,UAAU,EAAC,MAAM,CAAC,CAAA;IAGnE,KAAK,IAAI,CAAC,GAAG,CAAC,EAAE,CAAC,GAAG,UAAU,CAAC,MAAM,EAAE,CAAC,EAAE,EAAC,CAAC;IAE5C,CAAC;AAEJ,CAAC,CAAA"}
