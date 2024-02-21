@@ -1,0 +1,22 @@
+{
+  "name": "cw2-finals",
+  "version": "1.0.0",
+  "description": "final submision for cw2 big data",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nwakeze patrick",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.17"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.511.0",
+    "@aws-sdk/lib-dynamodb": "^3.511.0",
+    "aws-sdk": "^2.1555.0",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5"
+  }
+}
