@@ -41,20 +41,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //Class for managing text and numeric data 
 var axios = require("axios");
 var crytoDataManager = /** @class */ (function () {
-    function crytoDataManager(currencies, database) {
-        this.currencies = currencies;
-        this.database = database;
+    function crytoDataManager() {
     }
-    crytoDataManager.prototype.getData = function () {
+    crytoDataManager.prototype.getData = function (url) {
         return __awaiter(this, void 0, void 0, function () {
-            var data;
+            var response, data, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, axios.get("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=USD&apikey=PHY1E3XEIL2WXMLO")];
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, axios.get(url)];
                     case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.data];
+                    case 2:
                         data = _a.sent();
-                        console.log(data.length);
                         return [2 /*return*/, data];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error("error fetching data", error_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -66,4 +73,34 @@ var crytoDataManager = /** @class */ (function () {
     return crytoDataManager;
 }());
 module.exports = crytoDataManager;
+// async function uploadData(command:any, data:object[],params:Params) {
+//     // Create Date class so we can obtain a starting timestamp
+//     let date: Date = new                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Date();
+//     let startTimestamp = date.getTime();
+//     let currencies: Array<{ name: string; averagePrice: number }> = [
+//         { name: "bitcoin", averagePrice: 3800 },
+//     ];
+//     // Add dummy data for four currencies
+//     for (let curr of currencies) {
+//         // Add ten lots of data for each currency
+//         for (let ts: number = 0; ts < 10; ++ts) {
+//             // Create command
+//             const command = new PutCommand({
+//                 TableName: "cryto-data-numeric",
+//                 Item: {
+//                     "Currency": curr.name,
+//                     "PriceTimeStamp": startTimestamp + ts,
+//                     "Price": curr.averagePrice * (1 + 0.1 * (Math.random() - 0.5))
+//                 }
+//             });
+//             // Store data in DynamoDB and handle errors
+//             try {
+//                 const response = await documentClient.send(command);
+//                 console.log(response);
+//             } catch (err) {
+//                 console.error(err);
+//             }
+//         }
+//     }
+// }
 //# sourceMappingURL=CrytoDataManager.js.map
