@@ -41,8 +41,29 @@ interface DailyData {
     return dailyDataArray;
   }
   
+
+  function getUnixTimeStamp(dateISO:string){
+    console.log(dateISO);
+    const year =  dateISO.substring(0,4);
+    const month = dateISO.substring(4,6);
+    const day  =  dateISO.substring(6,8);
+    const hours = dateISO.substring(9,11);
+    const minutes =dateISO.substring(11,13);
+    const seconds =dateISO.substring(13,15);
+
+    console.log(year)
+
+    const dateString: string = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+    console.log(dateString)
+const date: Date= new Date(dateString);
+
+console.log(date.valueOf())
+return date.valueOf();
+
+  }
   
   module.exports = {
     processData,
+    getUnixTimeStamp
 
   }

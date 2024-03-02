@@ -53,20 +53,20 @@ var downloandNumericData = function () { return __awaiter(void 0, void 0, void 0
                 _a.label = 1;
             case 1:
                 if (!(i < currencies.length)) return [3 /*break*/, 4];
-                url = " https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=".concat(currencies[i], "&market=USD&apikey=").concat(process.env.ALPHAVANTAGE_API_KEY);
+                url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=".concat(currencies[i], "&market=USD&apikey=").concat(process.env.ALPHAVANTAGE_API_KEY);
                 return [4 /*yield*/, numericDataManager.getData(url)];
             case 2:
                 data = _a.sent();
                 parseDataForDb = processData(data);
                 if (parseDataForDb.length > 0) {
                     // Loop through the parse Data and Save in Db  split for 500 data points per feature 
-                    parseDataForDb.slice(0, 5).map(function (item) { return __awaiter(void 0, void 0, void 0, function () {
+                    parseDataForDb.slice(501, 502).forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                         var command, response, err_1;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
                                     command = new lib_dynamodb_1.PutCommand({
-                                        TableName: "CrytoExchangeRates",
+                                        TableName: "CryptoExchangeRates",
                                         Item: {
                                             "CurrencySymbol": currencies[i],
                                             "CrytoTs": item.date,
@@ -79,7 +79,6 @@ var downloandNumericData = function () { return __awaiter(void 0, void 0, void 0
                                     return [4 /*yield*/, documentClient.send(command)];
                                 case 2:
                                     response = _a.sent();
-                                    console.log(response);
                                     return [3 /*break*/, 4];
                                 case 3:
                                     err_1 = _a.sent();
@@ -99,33 +98,4 @@ var downloandNumericData = function () { return __awaiter(void 0, void 0, void 0
     });
 }); };
 module.exports = downloandNumericData;
-function uploadData() {
-    return __awaiter(this, void 0, void 0, function () {
-        var date, startTimestamp, currencies, _i, currencies_1, curr, ts, command;
-        return __generator(this, function (_a) {
-            date = new Date();
-            startTimestamp = date.getTime();
-            currencies = [
-                { name: "bitcoin", averagePrice: 3800 },
-            ];
-            // Add dummy data for four currencies
-            for (_i = 0, currencies_1 = currencies; _i < currencies_1.length; _i++) {
-                curr = currencies_1[_i];
-                // Add ten lots of data for each currency
-                for (ts = 0; ts < 10; ++ts) {
-                    command = new lib_dynamodb_1.PutCommand({
-                        TableName: "cryto-data-numeric",
-                        Item: {
-                            "Currency": curr.name,
-                            "PriceTimeStamp": startTimestamp + ts,
-                            "Price": curr.averagePrice * (1 + 0.1 * (Math.random() - 0.5))
-                        }
-                    });
-                    // Store data in DynamoDB and handle errors
-                }
-            }
-            return [2 /*return*/];
-        });
-    });
-}
 //# sourceMappingURL=downloadNumericData.js.map

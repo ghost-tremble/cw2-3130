@@ -1,0 +1,27 @@
+{
+    "Records": [
+      {
+        "eventID": "129d312511ecc60737c16c7d5a858c4d",
+        "eventName": "INSERT",
+        "eventVersion": "1.1",
+        "eventSource": "aws:dynamodb",
+        "awsRegion": "us-east-1",
+        "dynamodb": {
+          "ApproximateCreationDateTime": 1708872280,
+          "NewImage": {
+            "Summary": {
+              "S": "i am a good boy"
+            },
+            "TimePublished": {
+              "N": "131424324"
+            },
+            "CurrencySymbol": {
+              "S": "litecoini"
+            }
+          },
+          "eventSourceARN": "arn:aws:dynamodb:us-east-1:738298479515:table/CryptoTextData/stream/2024-02-22T20:42:13.763"
+        }
+      }
+    ]
+  }
+
