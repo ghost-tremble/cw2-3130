@@ -6,11 +6,9 @@ function App() {
    const [activeCoin, setActiveCoin] = useState("Bitcoin")
    const  [ coinData, setCoinData] = useState({})
 
-    let connection = new WebSocket("wss://5i1k8p4177.execute-api.us-east-1.amazonaws.com/prod");
+    let connection = new WebSocket("wss://oa4yaqfqw1.execute-api.us-east-1.amazonaws.com/prod");
     connection.onopen = function(event){
-      console.log("Connected: " + JSON.stringify(event));
-      sendMessage("BTC")
-     
+      sendMessage("BTC")   
   };
    
     connection.onmessage = function(msg){
@@ -19,13 +17,13 @@ function App() {
     
     }
 
-    connection.onerror = function (error) {
-        console.log("WebSocket Error: " + JSON.stringify(error));
-    }
+    // connection.onerror = function (error) {
+    //     console.log("WebSocket Error: " + JSON.stringify(error));
+    // }
 
     function sendMessage(coin){
         //Create message to be sent to server
-        console.log("running")
+  
         let msgObject = {
           action: "fetchPlotPoints",
           data: coin
@@ -42,7 +40,7 @@ function App() {
     y:[]
   }
 
-  console.log(positiveSentiment)
+
   const negativeSentiment = {
     x:[],
     y:[]
@@ -73,7 +71,8 @@ function App() {
 // y is value
 
  
-
+// let neutralSentiment = coinData?.BTC.sentiment.y.filter((item, index) => coinData?.BTC.sentiment.x[index] === 0)
+console.log(neutralSentiment)
   
 
 
@@ -143,14 +142,10 @@ function App() {
       name: 'Negative Sentiment',
     },
     {
-      x: coinData?.BTC.sentiment.x.map((item, index) => {
-        if (coinData?.BTC.sentiment.x[index] === 0) {
-          return new Date(item);
-        }
-      }),
-      y: coinData?.BTC.sentiment.y.filter((item, index) => coinData?.BTC.sentiment.x[index] === 0),
-      mode: 'markers',
-      marker: { color: 'gray' },
+      x: neutralSentiment.x,
+      y: neutralSentiment.y,
+      mode: 'lines+markers',
+      marker: { color: 'blue' },
       name: 'Neutral Sentiment',
     },
   ]}

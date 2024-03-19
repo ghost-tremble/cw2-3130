@@ -72,7 +72,7 @@ export async function getData(coin){
 
         await rawExchangeData?.Items.forEach(item => {  
             exchangeYaxis.push(item.ExchangeRates)
-            exchangeXaxis.push(item.CryptoTs)
+            exchangeXaxis.push(item.CrytoTs)
                      
          });
 

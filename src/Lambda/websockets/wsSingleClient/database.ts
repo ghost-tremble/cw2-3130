@@ -52,6 +52,7 @@ export async function getData(coin){
 
     try{
   const exhangeQuery = new QueryCommand(queries.priceQuery);
+
   const sentimentQuery = new QueryCommand(queries.sentimentQuery);
   const preditionsQuery = new QueryCommand(queries.priceQuery);
 
@@ -59,6 +60,7 @@ export async function getData(coin){
         let rawSentimentData = await docClient.send(sentimentQuery)
 
        
+        console.log(rawExchangeData)
         let sentimentXaxis =  []
         let sentimentYaxis = []
         let exchangeXaxis = []
@@ -72,7 +74,7 @@ export async function getData(coin){
 
         await rawExchangeData?.Items.forEach(item => {  
             exchangeYaxis.push(item.ExchangeRates)
-            exchangeXaxis.push(item.CryptoTs)
+            exchangeXaxis.push(item.CrytoTs)
                      
          });
 
@@ -89,7 +91,7 @@ export async function getData(coin){
             }
         }
         }
-
+console.log(JSON.stringify(formattedData))
          return formattedData
       
     }

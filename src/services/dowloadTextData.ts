@@ -30,7 +30,7 @@ const downloadTextData = async ()=>{
     if(data.feed && data.feed.length){
 
    // Loop through the parse Data and Save in Db  split for 500 data points per feature 
-        data.feed.slice( 16,20).forEach(async (item:FeedItem
+        data.feed.slice(16,20).forEach(async (item:FeedItem
             )=>{
             const command = new PutCommand({
                 TableName: "CryptoTextData",

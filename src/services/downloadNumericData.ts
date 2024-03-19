@@ -25,7 +25,7 @@ const downloandNumericData = async ()=>{
     if(parseDataForDb.length > 0){
 
    // Loop through the parse Data and Save in Db  split for 500 data points per feature 
-        parseDataForDb.slice(501,502).forEach(async (item:AlphavantageCrypto
+        parseDataForDb.slice(0,5).forEach(async (item:AlphavantageCrypto
             )=>{
             const command = new PutCommand({
                 TableName: "CryptoExchangeRates",

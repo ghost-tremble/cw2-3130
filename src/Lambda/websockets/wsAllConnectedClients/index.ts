@@ -1,7 +1,7 @@
 //Import external library with websocket functions
 import { getSendMessagePromises } from "./websocket";
 export const handler = async (event) => {
-    const domain = "5i1k8p4177.execute-api.us-east-1.amazonaws.com"
+    const domain = "oa4yaqfqw1.execute-api.us-east-1.amazonaws.com"
     const stage =   "prod"
     try {
         

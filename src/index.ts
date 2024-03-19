@@ -5,12 +5,6 @@ dotenv.config()
 const numericData = require("./services/downloadNumericData")
 const downloadTextData =  require("./services/dowloadTextData")
 
-numericData()
+// numericData()
 
 // downloadTextData()
-
-
-
-
-
-
