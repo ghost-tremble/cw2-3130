@@ -46,7 +46,11 @@ var downloandNumericData = function () { return __awaiter(void 0, void 0, void 0
         switch (_a.label) {
             case 0:
                 currencies = [
-                    "BTC"
+                    "BTC",
+                    // "ETH",
+                    // "LTC",
+                    // "XRP",
+                    // "DOGE",
                 ];
                 numericDataManager = new crytoDataManager();
                 i = 0;
@@ -54,13 +58,16 @@ var downloandNumericData = function () { return __awaiter(void 0, void 0, void 0
             case 1:
                 if (!(i < currencies.length)) return [3 /*break*/, 4];
                 url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=".concat(currencies[i], "&market=USD&apikey=").concat(process.env.ALPHAVANTAGE_API_KEY);
-                return [4 /*yield*/, numericDataManager.getData(url)];
+                return [4 /*yield*/, numericDataManager.getData(url)
+                    // console.log(data)
+                ];
             case 2:
                 data = _a.sent();
                 parseDataForDb = processData(data);
+                console.log(parseDataForDb.length);
                 if (parseDataForDb.length > 0) {
                     // Loop through the parse Data and Save in Db  split for 500 data points per feature 
-                    parseDataForDb.slice(0, 5).forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
+                    parseDataForDb.slice(0, 500).forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                         var command, response, err_1;
                         return __generator(this, function (_a) {
                             switch (_a.label) {

@@ -19,8 +19,3 @@
 
 // Get the data
 //const data  =  getData()
-
-async function getData(symbol) {
-
-    //Get Data from database
-}

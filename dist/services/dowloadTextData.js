@@ -46,7 +46,11 @@ var downloadTextData = function () { return __awaiter(void 0, void 0, void 0, fu
         switch (_a.label) {
             case 0:
                 currencies = [
-                    "BTC"
+                    "BTC",
+                    "ETH",
+                    "LTC",
+                    "XRP",
+                    "DOGE",
                 ];
                 textDataManager = new crytoDataManager();
                 i = 0;
@@ -57,9 +61,10 @@ var downloadTextData = function () { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, textDataManager.getData(url)];
             case 2:
                 data = _a.sent();
+                console.log(data);
                 if (data.feed && data.feed.length) {
                     // Loop through the parse Data and Save in Db  split for 500 data points per feature 
-                    data.feed.slice(16, 20).forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
+                    data.feed.slice(0, 500).forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                         var command, response, err_1;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
@@ -78,7 +83,7 @@ var downloadTextData = function () { return __awaiter(void 0, void 0, void 0, fu
                                     return [4 /*yield*/, documentClient.send(command)];
                                 case 2:
                                     response = _a.sent();
-                                    console.log(response);
+                                    ;
                                     return [3 /*break*/, 4];
                                 case 3:
                                     err_1 = _a.sent();

@@ -21,7 +21,7 @@ export async function getData(coin){
     const queries= {
         priceQuery:{
             TableName: "CryptoExchangeRates",
-            Limit: 5,
+            Limit: 150,
             ScanIndexForward: false,
             KeyConditionExpression: "CurrencySymbol = :curr",
             ExpressionAttributeValues: {
@@ -31,8 +31,8 @@ export async function getData(coin){
         },
         sentimentQuery:{
             TableName: "Sentiment",
-            Limit: 5,
-            ScanIndexForward: false,
+            Limit: 50,
+            ScanIndexForward: true,
             KeyConditionExpression: "CurrencySymbol = :curr",
             ExpressionAttributeValues: {
               ":curr": coin
@@ -40,12 +40,14 @@ export async function getData(coin){
             SortKeyCondition: "TimePublished" 
         },
         preditionsQuery:{
-            TableName: "Crypto",
-            Limit: 5,
+            TableName: "CryptoExchangeRates",
+            Limit: 50,
             ScanIndexForward: false,
-            KeyConditionExpression: "Currency = :curr",
+            KeyConditionExpression: "CurrencySymbol = :curr",
+            FilterExpression: "Predictions = :predictions",
             ExpressionAttributeValues: {
-                ":curr": coin
+                ":curr": coin,
+                ":predictions": true
             },
         }
     }
@@ -54,17 +56,21 @@ export async function getData(coin){
   const exhangeQuery = new QueryCommand(queries.priceQuery);
 
   const sentimentQuery = new QueryCommand(queries.sentimentQuery);
-  const preditionsQuery = new QueryCommand(queries.priceQuery);
+  const preditionsQuery = new QueryCommand(queries.preditionsQuery);
 
         let rawExchangeData = await docClient.send(exhangeQuery);
         let rawSentimentData = await docClient.send(sentimentQuery)
+        let rawPredictionsData = await docClient.send(preditionsQuery)
 
        
-        console.log(rawExchangeData)
+    
         let sentimentXaxis =  []
         let sentimentYaxis = []
         let exchangeXaxis = []
         let exchangeYaxis = []
+
+        let predictionXaxis = []
+        let predictionYaxis = []
 
        await rawSentimentData?.Items.forEach(item => {  
            sentimentYaxis.push(item.Sentiment)
@@ -72,7 +78,14 @@ export async function getData(coin){
                     
         });
 
-        await rawExchangeData?.Items.forEach(item => {  
+        await rawExchangeData?.Items.reverse().forEach(item => {  
+            exchangeYaxis.push(item.ExchangeRates)
+            exchangeXaxis.push(item.CrytoTs)
+                     
+         });
+
+         console.log(exchangeYaxis[0])
+         await rawPredictionsData?.Items.reverse().forEach(item => {  
             exchangeYaxis.push(item.ExchangeRates)
             exchangeXaxis.push(item.CrytoTs)
                      
@@ -84,14 +97,17 @@ export async function getData(coin){
                 x:exchangeXaxis,
                 y:exchangeYaxis
             },
-            predition:{},
+            predition:{
+                x:predictionXaxis,
+                y:predictionYaxis
+            },
             sentiment:{
                 x: sentimentXaxis,
                 y: sentimentYaxis
             }
         }
         }
-console.log(JSON.stringify(formattedData))
+
          return formattedData
       
     }

@@ -4,12 +4,12 @@ import Plot from 'react-plotly.js';
 import "./App.css"
 
 function App() {
-  const [activeCoin, setActiveCoin] = useState("ETH");
+  const [activeCoin, setActiveCoin] = useState("Bitcoin");
   const [coinData, setCoinData] = useState({});
 
   let connection = new WebSocket("wss://oa4yaqfqw1.execute-api.us-east-1.amazonaws.com/prod");
   connection.onopen = function(event){
-    sendMessage(activeCoin);
+    sendMessage("ETH");
   };
 
   connection.onmessage = function(msg){
@@ -18,6 +18,7 @@ function App() {
   };
 
   function sendMessage(coin){
+    alert(coin)
     let msgObject = {
       action: "fetchPlotPoints",
       data: coin
@@ -29,10 +30,10 @@ function App() {
   let negativePercentage = 0;
   let neutralPercentage = 0;
 
-  if (coinData[activeCoin]?.sentiment) {
-    const totalSentimentCount = coinData[activeCoin].sentiment.y.length;
-    const positiveCount = coinData[activeCoin].sentiment.y.filter(item => item > 0).length;
-    const negativeCount = coinData[activeCoin].sentiment.y.filter(item => item < 0).length;
+  if (coinData?.BTC?.sentiment) {
+    const totalSentimentCount = coinData.BTC.sentiment.y.length;
+    const positiveCount = coinData.BTC.sentiment.y.filter(item => item > 0).length;
+    const negativeCount = coinData.BTC.sentiment.y.filter(item => item < 0).length;
     const neutralCount = totalSentimentCount - positiveCount - negativeCount;
 
     positivePercentage = (positiveCount / totalSentimentCount) * 100;
@@ -54,12 +55,12 @@ function App() {
           <div>
             <h1>Showing ${activeCoin} Prices for duration X and Y </h1>
             <div className="timeseries">
-              {coinData[activeCoin] &&
+              {coinData?.BTC &&
                 <Plot
                   data={[
                     {
-                      x: coinData[activeCoin].actual.x.map(item => new Date(item)),
-                      y: coinData[activeCoin].actual.y,
+                      x: coinData.BTC.actual.x.map(item => new Date(item)),
+                      y: coinData.BTC.actual.y,
                       mode: 'lines+markers',
                       marker: {color: 'red'},
                     }
