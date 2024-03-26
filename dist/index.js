@@ -5,5 +5,5 @@ var downloadTextData = require("./services/dowloadTextData");
 var getData = require("./Lambda/websockets/wsSingleClient/database").getData;
 // numericData()
 // downloadTextData()
-getData("BTC");
+getData("ETH");
 //# sourceMappingURL=index.js.map

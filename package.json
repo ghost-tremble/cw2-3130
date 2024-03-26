@@ -20,6 +20,7 @@
     "@types/axios": "^0.14.0",
     "aws-sdk": "^2.1555.0",
     "axios": "^1.6.7",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "typescript": "^5.4.3"
   }
 }

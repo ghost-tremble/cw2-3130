@@ -13,4 +13,4 @@ const {getData }= require("./Lambda/websockets/wsSingleClient/database")
 
 
 
-getData("BTC")
+getData("ETH")
